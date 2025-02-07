@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,6 +10,7 @@ body {
     align-items: center;
 }
 
+/* Header Styles */
 header {
     background-color: #2c3e50;
     color: white;
@@ -16,12 +18,16 @@ header {
     width: 100%;
     text-align: center;
 }
-
-h1 {
+header h1 {
     margin: 0;
     font-size: 2rem;
 }
+header p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+}
 
+/* Container Styles */
 .container {
     display: flex;
     justify-content: space-between;
@@ -61,6 +67,7 @@ iframe {
     border: none;
 }
 
+/* Footer Styles */
 footer {
     margin-top: 20px;
     padding: 10px;
@@ -89,6 +96,7 @@ button:hover {
     background-color: #2980b9;
 }
 
+/* Tools Section */
 .tools {
     display: flex;
     justify-content: space-between;
@@ -112,19 +120,17 @@ button:hover {
     background-color: #e8a80d;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
     }
-
     .editor, .preview {
         margin: 10px 0;
     }
-
     footer {
         flex-direction: column;
     }
-
     button {
         margin: 5px 0;
     }
