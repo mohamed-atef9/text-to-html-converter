@@ -45,20 +45,9 @@ header p {
     margin: 0 10px;
 }
 
-.editor {
-    position: relative;
-}
-
-textarea {
-    width: 100%;
+/* Quill Editor Styles */
+#editor-container {
     height: 400px;
-    padding: 10px;
-    resize: none;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    font-size: 1rem;
-    box-sizing: border-box;
 }
 
 iframe {
