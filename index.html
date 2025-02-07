@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to HTML Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Convert plain text to HTML easily with our free online tool. Live preview and download functionality included!">
+    <meta name="keywords" content="text to html converter, html editor, online html tool, convert text to html">
+</head>
+<body>
+    <header>
+        <h1>Text to HTML Converter</h1>
+    </header>
+
+    <!-- Tools Section -->
+    <div class="tools">
+        <button class="tool-btn" onclick="clearEditor()">Clear Editor</button>
+        <button class="tool-btn" onclick="resetPreview()">Reset Preview</button>
+    </div>
+
+    <div class="container">
+        <!-- Left Side: Text Editor -->
+        <div class="editor">
+            <textarea id="editor" placeholder="Enter your text here..."></textarea>
+        </div>
+
+        <!-- Right Side: HTML Preview -->
+        <div class="preview">
+            <iframe id="preview-frame"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="downloadHTML()">Download HTML</button>
+        <button onclick="viewSourceCode()">View Source Code</button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
