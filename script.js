@@ -1,9 +1,25 @@
-const editor = document.getElementById('editor');
+// Initialize Quill Editor
+const quill = new Quill('#editor-container', {
+    theme: 'snow',
+    modules: {
+        toolbar: [
+            [{ header: [1, 2, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['link', 'image'],
+            ['clean'],
+            [{ align: [] }],
+            [{ direction: 'rtl' }]
+        ]
+    }
+});
+
+// Get references to elements
 const previewFrame = document.getElementById('preview-frame');
 
 // Live preview functionality
-editor.addEventListener('input', function () {
-    const content = editor.value;
+quill.on('text-change', function () {
+    const content = quill.root.innerHTML;
     const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
     previewDoc.open();
     previewDoc.write(content);
@@ -12,8 +28,8 @@ editor.addEventListener('input', function () {
 
 // Download HTML functionality
 function downloadHTML() {
-    const text = editor.value;
-    const blob = new Blob([text], { type: 'text/html' });
+    const content = quill.root.innerHTML;
+    const blob = new Blob([content], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -25,7 +41,7 @@ function downloadHTML() {
 
 // Clear Editor
 function clearEditor() {
-    editor.value = '';
+    quill.setText('');
     resetPreview();
 }
 
@@ -39,7 +55,7 @@ function resetPreview() {
 
 // View Source Code in a new tab
 function viewSourceCode() {
-    const sourceCode = editor.value;
+    const sourceCode = quill.root.innerHTML;
     const htmlBlob = new Blob([sourceCode], { type: 'text/html' });
     const url = URL.createObjectURL(htmlBlob);
     window.open(url, '_blank');
