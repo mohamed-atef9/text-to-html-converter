@@ -1,62 +1,35 @@
-// Initialize Quill Editor
-const quill = new Quill('#editor-container', {
+// Initialize Quill editor
+var quill = new Quill('#editor-container', {
     theme: 'snow',
     modules: {
         toolbar: [
-            [{ header: [1, 2, false] }],
+            [{ 'header': [1, 2, 3, false] }],
             ['bold', 'italic', 'underline', 'strike'],
-            [{ list: 'ordered' }, { list: 'bullet' }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
             ['link', 'image'],
-            ['clean'],
-            [{ align: [] }],
-            [{ direction: 'rtl' }]
+            [{ 'align': [] }],
+            [{ 'color': [] }, { 'background': [] }],
+            ['clean']
         ]
     }
 });
 
-// Get references to elements
-const previewFrame = document.getElementById('preview-frame');
+// Function to convert Quill Delta to Markdown
+function quillToMarkdown(delta) {
+    const tempContainer = document.createElement('div');
+    (new Quill(tempContainer)).setContents(delta);
+    return toMarkdown(tempContainer.innerHTML);
+}
 
-// Live preview functionality
-quill.on('text-change', function () {
-    const content = quill.root.innerHTML;
-    const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewDoc.open();
-    previewDoc.write(content);
-    previewDoc.close();
+// Function to convert Markdown to HTML
+function markdownToHtml(markdownText) {
+    return marked(markdownText);
+}
+
+// Event listener for the convert button
+document.getElementById('convert-button').addEventListener('click', function() {
+    const delta = quill.getContents();
+    const markdownText = quillToMarkdown(delta);
+    const html = markdownToHtml(markdownText);
+    document.getElementById('html-output').textContent = html;
 });
-
-// Download HTML functionality
-function downloadHTML() {
-    const content = quill.root.innerHTML;
-    const blob = new Blob([content], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'output.html';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-}
-
-// Clear Editor
-function clearEditor() {
-    quill.setText('');
-    resetPreview();
-}
-
-// Reset Preview
-function resetPreview() {
-    const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewDoc.open();
-    previewDoc.write('');
-    previewDoc.close();
-}
-
-// View Source Code in a new tab
-function viewSourceCode() {
-    const sourceCode = quill.root.innerHTML;
-    const htmlBlob = new Blob([sourceCode], { type: 'text/html' });
-    const url = URL.createObjectURL(htmlBlob);
-    window.open(url, '_blank');
-}
