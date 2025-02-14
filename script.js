@@ -14,11 +14,14 @@ var quill = new Quill('#editor-container', {
     }
 });
 
+// Initialize Turndown service
+var turndownService = new TurndownService();
+
 // Function to convert Quill Delta to Markdown
 function quillToMarkdown(delta) {
     const tempContainer = document.createElement('div');
     (new Quill(tempContainer)).setContents(delta);
-    return toMarkdown(tempContainer.innerHTML);
+    return turndownService.turndown(tempContainer.innerHTML);
 }
 
 // Function to convert Markdown to HTML
